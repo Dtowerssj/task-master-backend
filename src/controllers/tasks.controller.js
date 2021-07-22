@@ -2,18 +2,18 @@ const queries = require("../utils/queries");
 const conn = require("../utils/db");
 
 const getTareas = async (req, res) => {
-  console.log("estas en get tareas");
   const client = await conn.connect();
   try {
-    console.log(queries.GET_TAREAS);
-    const response = await client.query("SELECT id, nombre, descripcion FROM tareas;");
+    const response = await client.query(queries.GET_TAREAS);
     return res.status(200).json(response.rows);
   } catch {
-    res.status(505);
-}finally{
+    return res.status(505);
+  }finally{
   client.release(true);
-}
+  }
 };
+
+
 
 const getTareasbyId = async (req, res) => {
   try {
